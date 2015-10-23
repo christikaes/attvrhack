@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "attvrhack-master.CSharp", "attvrhack-master.CSharp.csproj", "{A5FAFED9-0289-477B-8D18-116CDC57F8AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "attvrhack-master.CSharp.Editor", "attvrhack-master.CSharp.Editor.csproj", "{AB47F9BD-97D6-6EBA-5E3F-4A5C160ACA33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5FAFED9-0289-477B-8D18-116CDC57F8AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5FAFED9-0289-477B-8D18-116CDC57F8AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5FAFED9-0289-477B-8D18-116CDC57F8AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5FAFED9-0289-477B-8D18-116CDC57F8AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB47F9BD-97D6-6EBA-5E3F-4A5C160ACA33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB47F9BD-97D6-6EBA-5E3F-4A5C160ACA33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB47F9BD-97D6-6EBA-5E3F-4A5C160ACA33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB47F9BD-97D6-6EBA-5E3F-4A5C160ACA33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

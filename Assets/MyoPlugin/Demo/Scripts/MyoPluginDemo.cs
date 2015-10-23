@@ -6,11 +6,17 @@ public class MyoPluginDemo : MonoBehaviour
 {
     public static string debugMessage;
 	public Transform objectToRotate;
-	
-	private Quaternion myoRotation;
+    public GameObject camera;
+    public GameObject pointRotate; //To rotate the camera round this point
+    //pointRotate.transform.position
+    // Spin the object around the world origin at 20 degrees/second.
+    //transform.RotateAround (Vector3.zero, Vector3.up, 20 * Time.deltaTime);
+    private Quaternion myoRotation;
 	private MyoPose myoPose = MyoPose.UNKNOWN;
+    private MyoPose lastPose = MyoPose.UNKNOWN;
+    Vector3 lastVector = Vector3.zero;
 
-	void Start () 
+    void Start () 
 	{		
 		MyoManager.Initialize ();
 		MyoManager.PoseEvent += OnPoseEvent;
@@ -18,12 +24,61 @@ public class MyoPluginDemo : MonoBehaviour
 
 	void OnPoseEvent( MyoPose pose )
 	{
+        lastPose = myoPose;
 		myoPose = pose;
 	}
 	
 	void Update()
 	{
-		if (MyoManager.GetIsAttached()) {
+        if (myoPose.ToString().Equals("FIST")) {
+            camera.transform.RotateAround(pointRotate.transform.position, myoRotation * Vector3.forward, 20 * Time.deltaTime);
+        } else if (myoPose.ToString().Equals("FINGERS_SPREAD")) {
+            //if (Application.loadedLevelName.ToString().Equals("SceneTwo")) {
+                //camera.transform.position = Vector3.MoveTowards(camera.transform.position, pointRotate.transform.position, 10 * Time.deltaTime);
+            //} else {
+                camera.transform.position = Vector3.MoveTowards(camera.transform.position, pointRotate.transform.position, 20 * Time.deltaTime);
+            //}
+            camera.transform.position = Vector3.MoveTowards(camera.transform.position, pointRotate.transform.position, 20 * Time.deltaTime);
+        } else if (myoPose.ToString().Equals("WAVE_OUT")) {
+            Vector3 v1 = Vector3.MoveTowards(camera.transform.position, pointRotate.transform.position, 20 * Time.deltaTime);
+            v1.y = v1.y + 1;
+            camera.transform.position = v1;
+        }
+        /*if (Cardboard.SDK.Triggered) {
+            if (Application.loadedLevelName.ToString().Equals("SceneTwo")) {
+                Application.LoadLevel("DemoScene");
+            } else {
+                Application.LoadLevel("SceneTwo");
+            }
+        }*/
+        
+        /*if (Input.GetKey("x"))
+            camera.transform.RotateAround(pointRotate.transform.position, Vector3.forward, 20 * Time.deltaTime);
+        else if (Input.GetKey("y"))
+            camera.transform.RotateAround(pointRotate.transform.position, Vector3.right, 20 * Time.deltaTime);
+        else if (Input.GetKey("z"))
+            camera.transform.RotateAround(pointRotate.transform.position, Vector3.up, 20 * Time.deltaTime);
+        else if (Input.GetKey("a")) {
+            camera.transform.position = Vector3.MoveTowards(camera.transform.position, pointRotate.transform.position, 20 * Time.deltaTime);
+        }
+        else if (Input.GetKey("s")) {
+            Vector3 v1 = Vector3.MoveTowards(camera.transform.position, pointRotate.transform.position, 20 * Time.deltaTime);
+            v1.y = v1.y + 1;
+            camera.transform.position = v1;
+        }
+        else if (Input.GetKeyDown("q"))
+        {
+            if (Application.loadedLevelName.ToString().Equals("SceneTwo"))
+            {
+                Application.LoadLevel("DemoScene");
+            }
+            else
+            {
+                Application.LoadLevel("SceneTwo");
+            }
+        } */
+
+        if (MyoManager.GetIsAttached()) {
             debugMessage = "successfully attached";	
 			myoRotation = MyoManager.GetQuaternion ();
 			objectToRotate.rotation = myoRotation;
@@ -70,9 +125,10 @@ public class MyoPluginDemo : MonoBehaviour
 
 		GUILayout.Label ( "Initialized: " + MyoManager.GetIsInitialized(), GUILayout.MinWidth(300), GUILayout.MinHeight(30) );
 
-        GUILayout.Label("Attached: " + MyoManager.GetIsAttached(), GUILayout.MinWidth(300), GUILayout.MinHeight(30));
+        GUILayout.Label( "Attached: " + MyoManager.GetIsAttached(), GUILayout.MinWidth(300), GUILayout.MinHeight(30));
 
-        GUILayout.Label("Your output : " + debugMessage, GUILayout.MinWidth(300), GUILayout.MinHeight(100));
+        GUILayout.Label( "Your output : " + debugMessage, GUILayout.MinWidth(300), GUILayout.MinHeight(100));
+        
 
         GUI.EndGroup();
 	}
